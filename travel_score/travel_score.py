@@ -60,9 +60,9 @@ def update_city_db(city: str, country: str, lat: float, lon: float, city_db_path
         writer.writerow([city.strip(), country.strip(), lat, lon])
     logging.info(f"Added coordinates for {city}, {country} to database")
 
-def process_input_file(input_path: str, city_db_path: str, output_path: str) -> None:
+def process_city_coordinates(input_path: str, city_db_path: str, output_path: str) -> None:
     """
-    Process input CSV file and generate JSON output with coordinates.
+    Process city coordinates from input CSV and generate JSON output with location data.
     
     Args:
         input_path (str): Path to input CSV file with cities
@@ -125,7 +125,7 @@ def main():
     args = parser.parse_args()
     
     setup_logging()
-    process_input_file(args.input_file, args.city_db, args.output)
+    process_city_coordinates(args.input_file, args.citydb, args.output)
 
 if __name__ == '__main__':
     main()

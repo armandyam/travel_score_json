@@ -1,2 +1,3 @@
 pandas
 geopy
+git+https://github.com/username/travel-score.git@main#egg=travel-score>=0.1.0
