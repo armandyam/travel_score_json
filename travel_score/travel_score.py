@@ -53,7 +53,7 @@ def get_coordinates_from_geopy(city: str, country: str) -> Tuple[float, float]:
         logging.error(f"Geopy error for {city}, {country}: {str(e)}")
         raise
 
-def update_city_db(city: str, country: str, lat: float, lon: float, city_db_path: str) -> None:
+def update_city_db(city: str, country: str, continent:str, lat: float, lon: float, city_db_path: str) -> None:
     """Add new coordinates to the city database"""
     with open(city_db_path, 'a') as file:
         writer = csv.writer(file)
@@ -82,7 +82,7 @@ def process_city_coordinates(input_path: str, city_db_path: str, output_path: st
     # Process each city
     results = []
     for _, row in df.iterrows():
-        city, country = row['City'].strip(), row['Country'].strip()
+        city, country, continent = row['City'].strip(), row['Country'].strip(), row['Continent'].strip()
         
         # Try database first
         lat, lon = get_coordinates_from_db(city, country, city_db_path)
@@ -91,7 +91,7 @@ def process_city_coordinates(input_path: str, city_db_path: str, output_path: st
         if lat is None or lon is None:
             try:
                 lat, lon = get_coordinates_from_geopy(city, country)
-                update_city_db(city, country, lat, lon, city_db_path)
+                update_city_db(city, country, continent, lat, lon, city_db_path)
             except Exception as e:
                 logging.error(f"Skipping {city}, {country}: {str(e)}")
                 continue
