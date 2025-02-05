@@ -57,7 +57,7 @@ def update_city_db(city: str, country: str, continent:str, lat: float, lon: floa
     """Add new coordinates to the city database"""
     with open(city_db_path, 'a') as file:
         writer = csv.writer(file)
-        writer.writerow([city.strip(), country.strip(), lat, lon])
+        writer.writerow([city.strip(), country.strip(), continent.strip(), lat, lon])
     logging.info(f"Added coordinates for {city}, {country} to database")
 
 def process_city_coordinates(input_path: str, city_db_path: str, output_path: str) -> None:
