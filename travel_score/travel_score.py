@@ -105,8 +105,12 @@ def process_city_coordinates(input_path: str, city_db_path: str, output_path: st
 
     # Save results to JSON
     try:
+        # Ensure the output directory exists
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    
         df_results = pd.DataFrame(results)
         df_results.to_json(output_path, orient='records', indent=2)
+    
         logging.info(f"Successfully processed {len(results)} cities")
         logging.info(f"Results saved to {output_path}")
     except Exception as e:
